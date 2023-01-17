@@ -5,6 +5,8 @@ const table = document.getElementById("WebTable")
 const form = document.querySelector('form')
 
 form.addEventListener("submit", addBook)
+table.addEventListener('click', deleteBook)
+
 
 
 
@@ -25,4 +27,21 @@ function addBook(e){
     a.setAttribute('href', '#')
     cell4.appendChild(a)
     e.preventDefault()
+}
+
+function deleteBook(e){
+    let listBook
+    let name = e.target.parentElement.parentElement.children[0].innerText
+    let author = e.target.parentElement.parentElement.children[1].innerText
+    let ISBN = e.target.parentElement.parentElement.children[2].innerText
+    let listDeletedBook = [name,author,ISBN]
+    if (e.target.textContent === "X") {
+        if (confirm("are you sure you want to remove this book?")) {
+            listBook = e.target.parentElement.parentElement.rowIndex
+            if (e.target.parentElement.parentElement.rowIndex > 0) {
+                console.log(e.target.parentElement.parentElement.rowIndex)
+                table.deleteRow(listBook)
+            }
+        }
+    }
 }
